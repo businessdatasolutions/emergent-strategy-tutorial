@@ -394,26 +394,50 @@ p {
     gap: 1.5rem;
 }
 
+/* VUCA Flip Card Container */
 .vuca-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
+    perspective: 1000px;
+    height: 160px;
+    cursor: pointer;
+}
+
+.vuca-item .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.vuca-item:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.vuca-item .card-front,
+.vuca-item .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     border-radius: var(--radius-large);
+    padding: 1.5rem;
     display: flex;
     gap: 1rem;
-    transition: var(--transition-medium);
-    cursor: pointer;
-    position: relative;
 }
 
-.vuca-item:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-3px);
+.vuca-item .card-front {
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.vuca-item:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.vuca-item .card-back {
+    background: var(--color-bg-dark);
+    transform: rotateY(180deg);
+    flex-direction: column;
+    justify-content: center;
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .vuca-letter {
@@ -432,19 +456,6 @@ p {
     color: var(--color-text-muted-light);
     font-size: 0.9rem;
     margin: 0;
-}
-
-.vuca-item .tooltip {
-    bottom: auto;
-    top: 100%;
-    margin-top: 1rem;
-}
-
-.vuca-item .tooltip::after {
-    top: auto;
-    bottom: 100%;
-    border-top-color: transparent;
-    border-bottom-color: var(--color-bg-dark);
 }
 
 /* Challenge Box */
@@ -1138,26 +1149,57 @@ p {
     gap: 1.5rem;
 }
 
+/* Flip Card Container */
 .requirement-item {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 1.5rem;
+    perspective: 1000px;
+    height: 180px;
+    cursor: pointer;
+}
+
+.requirement-item .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.requirement-item:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and Back faces */
+.requirement-item .card-front,
+.requirement-item .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     border-radius: var(--radius-large);
+    padding: 1.5rem;
     display: flex;
     gap: 1rem;
-    transition: var(--transition-medium);
-    cursor: pointer;
-    position: relative;
 }
 
-.requirement-item:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-3px);
+.requirement-item .card-front {
+    background: rgba(255, 255, 255, 0.1);
 }
 
-.requirement-item:hover .tooltip {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
+.requirement-item .card-back {
+    background: var(--color-bg-dark);
+    transform: rotateY(180deg);
+    flex-direction: column;
+    justify-content: center;
+    color: var(--color-text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.requirement-item .card-back em {
+    display: block;
+    margin-top: 0.75rem;
+    opacity: 0.8;
 }
 
 .req-icon {
@@ -1174,22 +1216,6 @@ p {
     color: var(--color-text-muted-light);
     font-size: 0.9rem;
     margin: 0;
-}
-
-.requirement-item .tooltip {
-    bottom: auto;
-    top: 100%;
-    margin-top: 1rem;
-    left: 0;
-    transform: translateY(10px);
-}
-
-.requirement-item .tooltip::after {
-    top: auto;
-    bottom: 100%;
-    left: 2rem;
-    border-top-color: transparent;
-    border-bottom-color: var(--color-bg-dark);
 }
 
 /* Connection List */
