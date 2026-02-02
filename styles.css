@@ -224,6 +224,25 @@ p {
     color: var(--color-text-muted-light);
 }
 
+.source-link {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-bg-light);
+    border-radius: var(--radius-small);
+    border-left: 3px solid var(--color-primary);
+}
+
+.source-link a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.source-link a:hover {
+    text-decoration: underline;
+}
+
 /* Video Container */
 .video-container {
     margin: 2rem 0 3rem;
