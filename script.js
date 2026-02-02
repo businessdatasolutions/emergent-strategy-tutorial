@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initFeedbackLoop();
     initQuiz();
+    initScenarioExercise();
     initSmoothScroll();
 });
 
@@ -220,6 +221,83 @@ function initQuiz() {
             <p>${message}</p>
         `;
         quizResult.classList.add('show');
+    }
+}
+
+/**
+ * Scenario Exercise
+ * Interactive exercise for categorizing finite/infinite game statements
+ */
+function initScenarioExercise() {
+    const statements = document.querySelectorAll('.scenario-statement');
+    const scenarioResult = document.getElementById('scenarioResult');
+    let answeredStatements = 0;
+    let correctAnswers = 0;
+
+    if (!statements.length) return;
+
+    statements.forEach(statement => {
+        const correctType = statement.dataset.type;
+        const buttons = statement.querySelectorAll('.statement-btn');
+        const feedback = statement.querySelector('.statement-feedback');
+        let answered = false;
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (answered) return;
+                answered = true;
+                answeredStatements++;
+
+                const selectedAnswer = button.dataset.answer;
+                const isCorrect = selectedAnswer === correctType;
+
+                // Disable all buttons for this statement
+                buttons.forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.dataset.answer === correctType) {
+                        btn.classList.add('correct');
+                    }
+                });
+
+                if (isCorrect) {
+                    correctAnswers++;
+                    button.classList.add('correct');
+                    feedback.textContent = 'Correct!';
+                    feedback.classList.add('correct');
+                } else {
+                    button.classList.add('incorrect');
+                    const correctLabel = correctType === 'eindig' ? 'Eindig' : 'Oneindig';
+                    feedback.textContent = `Niet helemaal. Dit is ${correctLabel} denken.`;
+                    feedback.classList.add('incorrect');
+                }
+
+                feedback.classList.add('show');
+
+                // Check if exercise is complete
+                if (answeredStatements === statements.length) {
+                    showScenarioResult();
+                }
+            });
+        });
+    });
+
+    function showScenarioResult() {
+        const percentage = Math.round((correctAnswers / statements.length) * 100);
+        let message = '';
+
+        if (percentage === 100) {
+            message = `Perfect! Je herkent het verschil tussen eindig en oneindig denken uitstekend.`;
+        } else if (percentage >= 66) {
+            message = `Goed gedaan! Je hebt ${correctAnswers} van de ${statements.length} goed. Je bent op de goede weg.`;
+        } else {
+            message = `Je hebt ${correctAnswers} van de ${statements.length} goed. Tip: eindig denken focust op winnen en verslaan, oneindig denken op leren en verbeteren.`;
+        }
+
+        scenarioResult.innerHTML = `
+            <strong>Score: ${percentage}%</strong>
+            <p>${message}</p>
+        `;
+        scenarioResult.classList.add('show');
     }
 }
 
